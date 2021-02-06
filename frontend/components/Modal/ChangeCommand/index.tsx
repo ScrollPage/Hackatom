@@ -29,7 +29,6 @@ const ChangeCommandComponent: React.FC<IChangCommande> = ({
     if (
       values.description ||
       values.idea ||
-      values.title ||
       values.categories ||
       values.requirenments
     ) {

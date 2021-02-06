@@ -160,16 +160,12 @@ const ProfileCardComponent = () => {
               Написать сообщение
             </Button>
           )}
-          {(isYourPage || isSteakholder) && (
-            <>
-              <Button onClick={handleTask} width="100%" myType="outline">
-                План проекта
-              </Button>
-              <Button onClick={handleDev} width="100%" myType="outline">
-                Проработка
-              </Button>
-            </>
-          )}
+          <Button onClick={handleTask} width="100%" myType="outline">
+            План проекта
+          </Button>
+          <Button onClick={handleDev} width="100%" myType="outline">
+            Проработка
+          </Button>
           <Stroke>
             <Label>Предприятие</Label>
             <Info>{userData.name}</Info>

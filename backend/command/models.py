@@ -7,7 +7,7 @@ from initiative.models import Initiative, Category, Requirenment
 
 class Command(models.Model):
     '''Команда'''
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=30, unique=True)
     initiator = models.ForeignKey(
         Initiative,
         verbose_name='Инициатор',
@@ -49,7 +49,6 @@ class CommandInfo(models.Model):
         related_name='info'
     )
     categories = models.ManyToManyField(Category, verbose_name='Категории')
-    image = models.ImageField(upload_to='images/%Y/%m/%d')
 
     def __str__(self):
         return f'информация о f{self.command}'

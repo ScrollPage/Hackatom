@@ -99,6 +99,12 @@ const renderButtons = (data: ICommand) => {
           <Button width="100%" myType="outline" onClick={handleChange}>
             Редактировать
           </Button>
+          <Button width="100%" myType="outline" onClick={handleTask}>
+            План команды
+          </Button>
+          <Button width="100%" myType="outline" onClick={handleChat}>
+            Перейти к диалогу команды
+          </Button>
           <Button width="100%" myType="outline" onClick={handleDelete}>
             Распустить команду
           </Button>

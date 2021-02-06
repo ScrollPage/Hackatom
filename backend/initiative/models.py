@@ -145,7 +145,6 @@ class InitiativeInfo(models.Model):
     description = models.TextField('Описание', max_length=2000, blank=True, default='')
     categories = models.ManyToManyField(Category, verbose_name='Категории')
     requirenments = models.ManyToManyField(Requirenment, verbose_name='Потребности')
-    image = models.ImageField(upload_to='images/%Y/%m/%d')
 
     class Meta:
         verbose_name = 'Информация об инициативе'
@@ -162,7 +161,7 @@ class Construct(models.Model):
     actuality = models.TextField(max_length=1500, default='')
     competitors = models.TextField(max_length=1500, default='')
     market_analysis = models.TextField(max_length=3000, default='')
-    budget = models.CharField(max_length=1500, default='')
+    budget = models.CharField(max_length=100, default='')
     business_model = models.TextField(max_length=3000, default='')
     workers = models.TextField(max_length=3000, default='')
 

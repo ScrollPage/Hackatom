@@ -54,7 +54,6 @@ export const commandChange = (values: ChangeCommandFormValues, id: number): Thun
 export const commandChangeInfo = (values: ChangeCommandFormValues, id: number): ThunkType => async dispatch => {
   await instance()
     .patch(`/api/command/info/${id}/`, {
-      title: values.title,
       idea: values.idea,
       description: values.description,
       categories: values.categories,

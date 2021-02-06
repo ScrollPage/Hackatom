@@ -93,5 +93,6 @@ class InitiativeSerializer(serializers.ModelSerializer):
             'id', 'email', 'first_name', 'last_name', 'phone_number',
             'name', 'company', 'is_superuser', 'info', 'rate', 'has_chat',
             'chat_id', 'num_notifications', 'num_unread_chats', 'num_reviews',
-            'settings', 'is_steakholder', 'first_login'
+            'settings', 'is_steakholder', 'first_login']
+            
         read_only_fields = ['is_superuser']
