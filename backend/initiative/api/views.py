@@ -109,7 +109,7 @@ class InitiativeViewSet(PSListRetrieveUpdateDestroyViewSet):
         'posts': [permissions.IsAuthenticated],
         'commands': [permissions.IsAuthenticated],
         'reviews': [permissions.IsAuthenticated],
-        'diagram': [permissions.IsAuthenticated, IsSteakHolderOrSelf]
+        'diagram': [permissions.IsAuthenticated]
     }
     filter_backends = [DjangoFilterBackend]
     filter_fields = '__all__'
