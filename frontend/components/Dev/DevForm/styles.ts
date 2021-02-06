@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   }
   ${Button} {
     align-self: flex-end;
+    margin-bottom: 20px;
   }
 `;
 

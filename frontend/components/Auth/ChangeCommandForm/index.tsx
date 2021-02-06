@@ -17,7 +17,6 @@ const validationSchema = object().shape({
 
 export interface ChangeCommandFormValues {
   name: string;
-  title: string;
   idea: string;
   description: string;
   categories: number[];
@@ -47,7 +46,6 @@ const ChangeCommandFormComponent: React.FC<ChangeCommandFormProps> = ({
       <Formik
         initialValues={{
           name: initialValues?.name ?? "",
-          title: initialValues?.info?.title ?? "",
           idea: initialValues?.info?.idea ?? "",
           description: initialValues?.info?.description ?? "",
           categories: format(initialValues?.info?.categories) ?? [],
@@ -72,7 +70,6 @@ const ChangeCommandFormComponent: React.FC<ChangeCommandFormProps> = ({
               <Input type="text" name="name" placeholder="Название команды" />
               <Input type="text" name="description" placeholder="Описание" />
               <Input type="text" name="idea" placeholder="Идея" />
-              <Input type="text" name="title" placeholder="Тайтел" />
               <Select
                 name="categories"
                 placeholder="Категории"

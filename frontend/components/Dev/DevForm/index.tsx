@@ -54,54 +54,62 @@ const DevFormComponent: React.FC<DevFormProps> = ({ initialValues }) => {
     return nameObj;
   }, [stage, devList]);
 
-  if (!(userId === getAsString(query.ID))) {
-    <Wrapper>
-      <Text>{initialValue}</Text>
-    </Wrapper>;
-  }
+  console.log(userId, query.ID);
 
-  return (
-    <Wrapper>
-      <Formik
-        enableReinitialize={true}
-        initialValues={{
-          [stage]: initialValue ?? "",
-        }}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          setSubmitting(true);
-          dispatch(authChangeDev(stage, values[stage]));
-          setSubmitting(false);
-          resetForm();
-        }}
-      >
-        {({ dirty, isValid }) => (
-          <Form>
-            <Title>{renderInfo.name}</Title>
-            <Text>{renderInfo.subtitle}</Text>
-            <Inner>
-              <TextArea
-                minHeight="100px"
-                maxHeight="300px"
-                name={stage}
-                placeholder="Введите описание этапа"
-              />
-              <Small>{renderInfo.small}</Small>
-              <FakeLink>{renderInfo.link}</FakeLink>
-              <Button
-                myType="outline"
-                type="submit"
-                width="218px"
-                disabled={!(dirty && isValid)}
-              >
-                Сохранить
-              </Button>
-            </Inner>
-          </Form>
-        )}
-      </Formik>
-    </Wrapper>
-  );
+  if (userId != query.ID) {
+    return (
+      <Wrapper>
+        <Title>{renderInfo.name}</Title>
+        <Text>{initialValue}</Text>
+      </Wrapper>
+    );
+  } else {
+    return (
+      <Wrapper>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            [stage]: initialValue ?? "",
+          }}
+          validationSchema={validationSchema}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setSubmitting(true);
+            dispatch(authChangeDev(stage, values[stage]));
+            setSubmitting(false);
+            resetForm();
+          }}
+        >
+          {({ dirty, isValid }) => (
+            <Form>
+              <Title>{renderInfo.name}</Title>
+              <Text>{renderInfo.subtitle}</Text>
+              <Inner>
+                <TextArea
+                  minHeight="100px"
+                  maxHeight="300px"
+                  name={stage}
+                  placeholder="Введите описание этапа"
+                />
+                <Small>{renderInfo.small}</Small>
+                <FakeLink>{renderInfo.link}</FakeLink>
+                <Button myType="outline" width="218px">
+                  Добавить документ
+                </Button>
+                <Button
+                  myType="outline"
+                  type="submit"
+                  width="218px"
+                  disabled={!(dirty && isValid)}
+                >
+                  Сохранить
+                </Button>
+              </Inner>
+            </Form>
+          )}
+        </Formik>
+      </Wrapper>
+    );
+  }
 };
 
 export const DevForm = memo(DevFormComponent);
