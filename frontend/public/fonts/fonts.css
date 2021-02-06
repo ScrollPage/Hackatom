@@ -1,0 +1,35 @@
+@font-face {
+  font-family: Play;
+  src: url(Play-Regular.eot);
+  src: local("☺"), url(Play-Regular.woff) format("woff"),
+    url(Play-Regular.ttf) format("truetype"),
+    url(Play-Regular.svg) format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Play;
+  src: url(Play-Bold.eot);
+  src: local("☺"), url(Play-Bold.woff) format("woff"),
+    url(Play-Bold.ttf) format("truetype"), url(Play-Bold.svg) format("svg");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url(Montserrat-Regular.eot);
+  src: local("☺"), url(Montserrat-Regular.woff) format("woff"),
+    url(Montserrat-Regular.ttf) format("truetype"),
+    url(Montserrat-Regular.svg) format("svg");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: Montserrat;
+  src: url(Montserrat-Bold.eot);
+  src: local("☺"), url(Montserrat-Bold.woff) format("woff"),
+    url(Montserrat-Bold.ttf) format("truetype"),
+    url(Montserrat-Bold.svg) format("svg");
+  font-weight: 700;
+  font-style: normal;
+}

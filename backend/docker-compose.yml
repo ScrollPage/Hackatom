@@ -1,0 +1,128 @@
+version: '3'
+
+services:
+
+  # nginx:
+  #   container_name: nginx
+  #   build: ./nginx
+  #   ports:
+  #     - 8000:80
+  #   depends_on: 
+  #     - web
+  #   volumes: 
+  #     - static_volume:/home/app/web/staticfiles
+
+  db:
+    container_name: web_postgresql
+    image: postgres:13.0
+    volumes: 
+      - pg_data:/var/lib/postgresql13/data/
+    ports:
+      - 5432:5432
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_db=postgres
+
+  pgbouncer:
+    container_name: pgbouncer
+    image: edoburu/pgbouncer
+    volumes:
+      - ./pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt:ro
+    restart: always
+    ports:
+      - 6432:6432
+    depends_on:
+      - db
+
+  # grafana:
+  #   image: grafana/grafana
+  #   # depends_on:
+  #   #     - prometheus
+  #   container_name: grafana
+  #   ports:
+  #     - 3001:3000
+  #   volumes:
+  #     - ./grafana:/var/lib/grafana
+  #     - ./grafana/provisioning/:/etc/grafana/provisioning/
+  #   restart: always
+
+  netdata:
+    container_name: netdata
+    restart: always
+    image: netdata/netdata
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    ports: 
+      - 19999:19999
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/var/lib/redis/data/
+    restart: always
+
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: prometheus
+  #   ports:
+  #     - 9090:9090
+  #   command:
+  #     - --config.file=/etc/prometheus/prometheus.yml
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  #   depends_on:
+  #     - cadvisor
+
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   container_name: cadvisor
+  #   ports:
+  #     - 8080:8080
+  #   volumes:
+  #     - /:/rootfs:ro
+  #     - /var/run:/var/run:rw
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   depends_on:
+  #     - redis
+
+  web:
+    container_name: web
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    tty: true
+    command: python manage.py runserver 0:8000
+    # command: bash -c "/usr/bin/supervisord"
+    # command: /usr/local/bin/daphne -u /run/daphne/daphned.sock --access-log - --proxy-headers backend.asgi:application
+    # command: whereis gunicorn
+    volumes: 
+      - static_volume:/home/app/web/staticfiles
+      - ./supervisor/supervisor.conf:/etc/supervisor/conf.d/supervisord.conf:ro
+      - ./entrypoint.sh:/home/app/web/entrypoint.sh
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    ports: 
+      - 8000:8000
+    env_file:
+      - ./.env
+    depends_on: 
+      - db
+      - redis
+    links:
+      - redis
+
+volumes: 
+  pg_data:
+  static_volume:
+  redis_data:
