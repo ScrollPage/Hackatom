@@ -162,7 +162,7 @@ class Construct(models.Model):
     actuality = models.TextField(max_length=1500, default='')
     competitors = models.TextField(max_length=1500, default='')
     market_analysis = models.TextField(max_length=3000, default='')
-    budget = models.CharField(max_length=100, default='')
+    budget = models.CharField(max_length=1500, default='')
     business_model = models.TextField(max_length=3000, default='')
     workers = models.TextField(max_length=3000, default='')
 

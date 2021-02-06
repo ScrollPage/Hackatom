@@ -7,7 +7,7 @@ from initiative.models import Initiative, Category, Requirenment
 
 class Command(models.Model):
     '''Команда'''
-    name = models.CharField(max_length=30, unique=True)
+    name = models.CharField(max_length=100, unique=True)
     initiator = models.ForeignKey(
         Initiative,
         verbose_name='Инициатор',
