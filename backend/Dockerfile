@@ -10,16 +10,15 @@ RUN apt-get upgrade -y && apt-get -y install postgresql gcc python3-dev musl-dev
 
 RUN pip install --upgrade pip
 
-COPY ./req.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r req.txt
+COPY ./prod.req.txt .
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /usr/src/app/wheels -r prod.req.txt
 # --no-cache-dir --no-deps --wheel-dir 
 
 FROM python:3.9
 
 RUN apt-get update
 RUN apt-get upgrade -y
-RUN apt-get install -y supervisor nginx
-RUN apt-get install -y netcat
+RUN apt-get install -y netcat supervisor
 
 COPY --from=builder /usr/src/app/wheels /wheels
 # COPY --from=builder /usr/src/app/req.txt .
@@ -40,9 +39,6 @@ WORKDIR $APP_HOME
 
 COPY ./entrypoint.sh $APP_HOME
 RUN chmod +x entrypoint.sh
-
-RUN mkdir /etc/nginx/cache
-COPY ./nginx/nginx.conf /etc/nginx/conf.d
 
 COPY . $APP_HOME
 

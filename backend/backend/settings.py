@@ -111,8 +111,7 @@ CHANNEL_LAYERS = {
             'hosts': [(REDIS_HOST, REDIS_PORT)],
         },
     },
-}
-
+}   
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
