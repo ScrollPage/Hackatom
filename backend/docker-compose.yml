@@ -116,7 +116,8 @@ services:
       - ./.env
     expose: 
       - 8000
-    depends_on: 
+      - 8001
+    depends_on:
       - db
       - redis
     links:

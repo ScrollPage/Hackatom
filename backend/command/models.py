@@ -48,7 +48,6 @@ class CommandInfo(models.Model):
         on_delete=models.CASCADE,
         related_name='info'
     )
-    categories = models.ManyToManyField(Category, verbose_name='Категории')
 
     def __str__(self):
         return f'информация о f{self.command}'
